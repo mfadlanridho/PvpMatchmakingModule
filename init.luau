@@ -105,7 +105,9 @@ end
 -- Update Display Board UI
 local function updateBoard(session: any)
 	local pad = session.pad
-	local displayBoard = pad:FindFirstChild("DisplayBoard") or pad:FindFirstChild("StatusAnchor")
+	local displayBoard = pad:FindFirstChild("CoverDoor", true)
+		or pad:FindFirstChild("DisplayBoard", true)
+		or pad:FindFirstChild("StatusAnchor", true)
 	if not displayBoard then return end
 
 	local gui = displayBoard:FindFirstChildOfClass("SurfaceGui") or displayBoard:FindFirstChildOfClass("BillboardGui")
@@ -125,8 +127,8 @@ local function updateBoard(session: any)
 	-- Slot 1
 	local slot1Frame = board:FindFirstChild("Slot1Frame")
 	if slot1Frame then
-		local avatar = slot1Frame:FindFirstChild("Avatar") :: ImageLabel?
-		local nameLabel = slot1Frame:FindFirstChild("NameLabel") :: TextLabel?
+		local avatar = (slot1Frame:FindFirstChild("Avatar") or slot1Frame:FindFirstChild("AvatarImage")) :: ImageLabel?
+		local nameLabel = (slot1Frame:FindFirstChild("NameLabel") or slot1Frame:FindFirstChild("PlayerName")) :: TextLabel?
 		if slot1 then
 			if nameLabel then nameLabel.Text = slot1.name end
 			if avatar then
@@ -150,8 +152,8 @@ local function updateBoard(session: any)
 	-- Slot 2
 	local slot2Frame = board:FindFirstChild("Slot2Frame")
 	if slot2Frame then
-		local avatar = slot2Frame:FindFirstChild("Avatar") :: ImageLabel?
-		local nameLabel = slot2Frame:FindFirstChild("NameLabel") :: TextLabel?
+		local avatar = (slot2Frame:FindFirstChild("Avatar") or slot2Frame:FindFirstChild("AvatarImage")) :: ImageLabel?
+		local nameLabel = (slot2Frame:FindFirstChild("NameLabel") or slot2Frame:FindFirstChild("PlayerName")) :: TextLabel?
 		if slot2 then
 			if nameLabel then nameLabel.Text = slot2.name end
 			if avatar then
